@@ -12,6 +12,8 @@ function Homepage(props) {
       />
 
       <Member />
+      <Member />
+      <Member />
     </View>
   );
 }
@@ -23,7 +25,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    overflow: "scroll",
   },
   background: {
     width: "100%",

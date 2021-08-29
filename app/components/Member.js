@@ -8,14 +8,14 @@ function Member(props) {
   return (
     <View style={styles.layout}>
       <View>
-        <Image source={require("../assets/user.png")} />
+        <Image style={styles.image} source={require("../assets/milos.jpg")} />
       </View>
       <View>
-        <Text>Ime i Prezime</Text>
+        <Text style={styles.text}>Ime i Prezime</Text>
         <Button
           onPress={btn}
           title="Detalji"
-          color="#841584"
+          color="dodgerblue"
           accessibilityLabel="Detalji o clanu pikado kluba"
         />
       </View>
@@ -29,7 +29,26 @@ const styles = StyleSheet.create({
   layout: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "rgba(255,255,255,0.7)",
+    alignItems: "center",
+    backgroundColor: "rgb(255, 255, 255)",
     width: "90%",
+    margin: 5,
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 10,
+    borderRadius: 7,
+    padding: 10
   },
+  image: {
+      width: 50,
+      height: 50,
+      borderRadius: 50
+  },
+  text: {
+      fontSize: 16,
+      textTransform: "uppercase",
+      fontWeight: "bold",
+  }
 });
