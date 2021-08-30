@@ -39,16 +39,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 10,
     borderRadius: 7,
-    padding: 10
+    padding: 10,
   },
   image: {
-      width: 50,
-      height: 50,
-      borderRadius: 50
+    width: 50,
+    height: 50,
+    borderRadius: 50,
   },
   text: {
-      fontSize: 16,
-      textTransform: "uppercase",
-      fontWeight: "bold",
-  }
+    fontSize: 16,
+    textTransform: "uppercase",
+  },
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View } from "react-native";
+import { ImageBackground, StyleSheet, View, Button } from "react-native";
 import Member from "../components/Member";
 
 function Homepage(props) {
@@ -14,6 +14,10 @@ function Homepage(props) {
       <Member />
       <Member />
       <Member />
+      <Button
+        title="Add Member"
+        onPress={() => props.navigation.navigate('Add Member')}
+      />
     </View>
   );
 }
@@ -30,6 +34,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     position: "absolute",
-    opacity: 0.15
+    opacity: 0.15,
   },
 });
