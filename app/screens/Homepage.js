@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageBackground, StyleSheet, View, Button } from "react-native";
 import Member from "../components/Member";
-
+import Header from "../components/Header";
 function Homepage(props) {
   return (
     <View style={styles.container}>
@@ -10,14 +10,11 @@ function Homepage(props) {
         source={require("../assets/matador.png")}
         resizeMode="contain"
       />
+      <Header {...props} />
 
       <Member />
       <Member />
       <Member />
-      <Button
-        title="Add Member"
-        onPress={() => props.navigation.navigate('Add Member')}
-      />
     </View>
   );
 }
@@ -28,7 +25,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
   background: {
     width: "100%",
