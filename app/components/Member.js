@@ -8,7 +8,7 @@ function Member(props) {
   return (
     <View style={styles.layout}>
       <View>
-        <Image style={styles.image} source={require("../assets/milos.jpg")} />
+        <Image style={styles.image} source={require("../assets/user.png")} />
       </View>
       <View>
         <Text style={styles.text}>Ime i Prezime</Text>
@@ -42,9 +42,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   image: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 50,
+    opacity: 0.3
   },
   text: {
     fontSize: 16,

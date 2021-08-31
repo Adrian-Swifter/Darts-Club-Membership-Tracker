@@ -4,6 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Dimensions,
 } from "react-native";
 import Member from "../components/Member";
 import Header from "../components/Header";
@@ -18,17 +19,6 @@ function Homepage(props) {
         />
         <Header {...props} />
 
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
-        <Member />
         <Member />
         <Member />
         <Member />
@@ -48,7 +38,7 @@ const styles = StyleSheet.create({
   background: {
     width: "100%",
     height: "100%",
-    position: "absolute",
     opacity: 0.15,
+    position: "absolute",
   },
 });
