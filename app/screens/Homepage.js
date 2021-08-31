@@ -2,7 +2,6 @@ import React from "react";
 import {
   ImageBackground,
   StyleSheet,
-  View,
   ScrollView,
   SafeAreaView,
 } from "react-native";

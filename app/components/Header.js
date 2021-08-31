@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -20,7 +21,7 @@ function Header({ navigation }) {
           elevation: 10,
           backgroundColor: "white",
           padding: 2,
-          borderRadius: 7
+          borderRadius: 7,
         }}
       >
         <Image style={styles.logo} source={require("../assets/PFS.jpg")} />
@@ -38,7 +39,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 60,
+    paddingTop: Platform.OS === "android" ? 60 : 0,
     paddingBottom: 20,
     width: "90%",
     flexDirection: "row",
