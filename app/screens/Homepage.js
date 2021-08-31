@@ -1,21 +1,41 @@
 import React from "react";
-import { ImageBackground, StyleSheet, View, Button } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  View,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import Member from "../components/Member";
 import Header from "../components/Header";
 function Homepage(props) {
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        style={styles.background}
-        source={require("../assets/matador.png")}
-        resizeMode="contain"
-      />
-      <Header {...props} />
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <ImageBackground
+          style={styles.background}
+          source={require("../assets/matador.png")}
+          resizeMode="contain"
+        />
+        <Header {...props} />
 
-      <Member />
-      <Member />
-      <Member />
-    </View>
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+        <Member />
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
