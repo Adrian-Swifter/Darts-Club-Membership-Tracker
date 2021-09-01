@@ -1,13 +1,159 @@
 import React from "react";
-import { Text, View } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
-function MemberDetails({route}) {
-    const {user} = route.params
+function MemberDetails({ route }) {
+  const { user } = route.params;
   return (
-    <View>
-      <Text>{user.name}</Text>
-    </View>
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.flexContainer}>
+          <View>
+            <Image
+              style={styles.image}
+              source={require("../assets/user.png")}
+            />
+          </View>
+          <View>
+            <Text>
+              <Text style={styles.boldText}>Ime:</Text> {user.name}
+            </Text>
+            <Text>
+              <Text style={styles.boldText}>Email:</Text> {user.email}
+            </Text>
+            <Text>
+              <Text style={styles.boldText}>Članarina:</Text> {user.phone}
+            </Text>
+          </View>
+        </View>
+        {/* {Meseci} */}
+        <View style={styles.monthsContainer}>
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.monthWrapper}>
+            <Text>Januar</Text>
+            <TouchableOpacity style={styles.iconWrapper}>
+              <Icon style={styles.icon} name="remove" size={50} color="white" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 
 export default MemberDetails;
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+  },
+  flexContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "90%",
+    paddingTop: 20,
+  },
+  boldText: {
+    fontWeight: "bold",
+  },
+  image: {
+    width: 60,
+    height: 60,
+  },
+  iconWrapper: {
+    backgroundColor: false ? "tomato" : "#00ff00",
+    padding: 10,
+    width: 80,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  monthsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    paddingTop: 40
+  },
+  monthWrapper: {
+    width: "33%",
+    alignItems: "center"
+  },
+});
