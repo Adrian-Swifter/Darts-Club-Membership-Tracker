@@ -1,20 +1,37 @@
 import React from "react";
-import { View, Image, Text, Button, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-function Member(props) {
-  const btn = () => {
-    alert("test");
-  };
+function Member({ users, navigation }) {
   return (
     <View style={styles.layout}>
-      <View>
-        <Image style={styles.image} source={require("../assets/user.png")} />
-      </View>
-      <View style={styles.iconContainer} >
-        <Text style={styles.text}>Ime i Prezime</Text>
-        <Icon style={styles.icon} name="chevron-right" size={20} color="dodgerblue" />
-      </View>
+      {users.map((user) => (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Member Details", {
+              user: user,
+            })
+          }
+          key={user.id}
+          style={styles.memberRow}
+        >
+          <View>
+            <Image
+              style={styles.image}
+              source={require("../assets/user.png")}
+            />
+          </View>
+          <View style={styles.iconContainer}>
+            <Text style={styles.text}>{user.name}</Text>
+            <Icon
+              style={styles.icon}
+              name="chevron-right"
+              size={20}
+              color="dodgerblue"
+            />
+          </View>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }
@@ -23,6 +40,12 @@ export default Member;
 
 const styles = StyleSheet.create({
   layout: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  memberRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -41,16 +64,16 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 50,
-    opacity: 0.3
+    opacity: 0.3,
   },
   text: {
     fontSize: 16,
     textTransform: "uppercase",
   },
   iconContainer: {
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   icon: {
-    paddingTop: 10
-  }
+    paddingTop: 10,
+  },
 });

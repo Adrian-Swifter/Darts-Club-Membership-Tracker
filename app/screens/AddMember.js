@@ -29,7 +29,11 @@ function AddMember(props) {
               value={props.values.visinaClanarine}
             />
 
-            <Button title="submit" color="dodgerblue" onPress={props.handleSubmit} />
+            <Button
+              title="submit"
+              color="dodgerblue"
+              onPress={props.handleSubmit}
+            />
           </View>
         )}
       </Formik>

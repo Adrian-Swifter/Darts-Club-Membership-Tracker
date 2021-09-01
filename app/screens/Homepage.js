@@ -1,14 +1,20 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
   ScrollView,
   SafeAreaView,
-  Dimensions,
 } from "react-native";
 import Member from "../components/Member";
 import Header from "../components/Header";
 function Homepage(props) {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((res) => res.json())
+      .then((res) => setUsers(res));
+  }, []);
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -19,10 +25,9 @@ function Homepage(props) {
         />
         <Header {...props} />
 
-        <Member />
-        <Member />
-        <Member />
-        <Member />
+        <Member users={users} {...props} />
+
+        {console.log(users)}
       </SafeAreaView>
     </ScrollView>
   );
