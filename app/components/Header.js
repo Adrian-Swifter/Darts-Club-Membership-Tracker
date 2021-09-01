@@ -28,7 +28,7 @@ function Header({ navigation }) {
       </View>
       <View>
         <TouchableOpacity onPress={() => navigation.navigate("Add Member")}>
-          <Icon style={styles.icon} name="plus" size={30} color="black" />
+          <Icon style={styles.icon} name="plus" size={30} color="dodgerblue" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -55,5 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 7,
     borderRadius: 7,
+    borderColor: "dodgerblue",
+    borderWidth: 1
   },
 });

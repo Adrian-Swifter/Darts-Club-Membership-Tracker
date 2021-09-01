@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Image, Text, Button, StyleSheet } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 function Member(props) {
   const btn = () => {
@@ -10,14 +11,9 @@ function Member(props) {
       <View>
         <Image style={styles.image} source={require("../assets/user.png")} />
       </View>
-      <View>
+      <View style={styles.iconContainer} >
         <Text style={styles.text}>Ime i Prezime</Text>
-        <Button
-          onPress={btn}
-          title="Detalji"
-          color="dodgerblue"
-          accessibilityLabel="Detalji o clanu pikado kluba"
-        />
+        <Icon style={styles.icon} name="chevron-right" size={20} color="dodgerblue" />
       </View>
     </View>
   );
@@ -30,7 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "rgb(255, 255, 255)",
+    backgroundColor: "white",
     width: "90%",
     margin: 5,
     shadowColor: "#171717",
@@ -51,4 +47,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textTransform: "uppercase",
   },
+  iconContainer: {
+    alignItems: "flex-end"
+  },
+  icon: {
+    paddingTop: 10
+  }
 });

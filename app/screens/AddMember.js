@@ -6,7 +6,7 @@ function AddMember(props) {
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{ imePrezime: "", email: "", visinaClanarine: 0 }}
+        initialValues={{ imePrezime: "", email: "", visinaClanarine: "" }}
         onSubmit={(values) => {
           console.log(values);
         }}
@@ -29,7 +29,7 @@ function AddMember(props) {
               value={props.values.visinaClanarine}
             />
 
-            <Button title="submit" color="gold" onPress={props.handleSubmit} />
+            <Button title="submit" color="dodgerblue" onPress={props.handleSubmit} />
           </View>
         )}
       </Formik>
