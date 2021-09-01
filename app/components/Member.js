@@ -25,7 +25,7 @@ function Member({ users, navigation }) {
             <Text style={styles.text}>{user.name}</Text>
             <Icon
               style={styles.icon}
-              name="chevron-right"
+              name="hand-pointer-o"
               size={20}
               color="dodgerblue"
             />
