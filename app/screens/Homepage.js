@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import Member from "../components/Member";
 import Header from "../components/Header";
+
 function Homepage(props) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -26,8 +27,6 @@ function Homepage(props) {
         <Header {...props} />
 
         <Member users={users} {...props} />
-
-        {console.log(users)}
       </SafeAreaView>
     </ScrollView>
   );
