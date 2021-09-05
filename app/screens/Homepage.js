@@ -8,14 +8,33 @@ import {
 } from "react-native";
 import Member from "../components/Member";
 import Header from "../components/Header";
+import { app } from "../FirebaseConfig";
 
 function Homepage(props) {
   const [users, setUsers] = useState([]);
+  const [members, setMembers] = useState([]);
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
       .then((res) => setUsers(res));
   }, []);
+
+  useEffect(() => {
+    app
+      .firestore()
+      .collection("members")
+      .get()
+      .then((memdata) => {
+        const memarr = [];
+        memdata.forEach((snapshot) => {
+          const data = snapshot.data();
+          memarr.push(data);
+        });
+        setMembers(memarr);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  console.log(members);
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -25,8 +44,12 @@ function Homepage(props) {
           resizeMode="contain"
         />
         <Header {...props} />
-
-        <Member users={users} {...props} />
+        {/* <View>
+          {members.map((member) => {
+            console.log(member);
+          })}
+        </View> */}
+        <Member users={members} {...props} />
       </SafeAreaView>
     </ScrollView>
   );
