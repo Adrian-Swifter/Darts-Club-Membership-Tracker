@@ -23,16 +23,14 @@ function Homepage(props) {
     app
       .firestore()
       .collection("members")
-      .get()
-      .then((memdata) => {
+      .onSnapshot((memdata) => {
         const memarr = [];
         memdata.forEach((snapshot) => {
-          const data = snapshot.data();
-          memarr.push(data);
+          memarr.push({...snapshot.data()});
         });
         setMembers(memarr);
       })
-      .catch((err) => console.log(err));
+      
   }, []);
   console.log(members);
   return (
@@ -44,11 +42,7 @@ function Homepage(props) {
           resizeMode="contain"
         />
         <Header {...props} />
-        {/* <View>
-          {members.map((member) => {
-            console.log(member);
-          })}
-        </View> */}
+        
         <Member users={members} {...props} />
       </SafeAreaView>
     </ScrollView>

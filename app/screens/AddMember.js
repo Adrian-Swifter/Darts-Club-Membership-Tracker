@@ -1,14 +1,22 @@
 import React from "react";
 import { Button, TextInput, View, StyleSheet } from "react-native";
 import { Formik } from "formik";
-
+import { app } from "../FirebaseConfig";
 function AddMember(props) {
+
+  const addMembersToFirestore = (values) => {
+    app
+    .firestore()
+    .collection("members")
+    .add({...values})
+  }
+
   return (
     <View style={styles.container}>
       <Formik
         initialValues={{ imePrezime: "", email: "", visinaClanarine: "" }}
         onSubmit={(values) => {
-          console.log(values);
+          addMembersToFirestore(values);
         }}
       >
         {(props) => (

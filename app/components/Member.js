@@ -22,7 +22,7 @@ function Member({ users, navigation }) {
             />
           </View>
           <View style={styles.iconContainer}>
-            <Text style={styles.text}>{user.name}</Text>
+            <Text style={styles.text}>{user.imePrezime}</Text>
             <Icon
               style={styles.icon}
               name="hand-pointer-o"

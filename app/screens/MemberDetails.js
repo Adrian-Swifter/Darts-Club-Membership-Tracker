@@ -30,13 +30,13 @@ function MemberDetails({ route }) {
           </View>
           <View>
             <Text>
-              <Text style={styles.boldText}>Ime:</Text> {user.name}
+              <Text style={styles.boldText}>Ime:</Text> {user.imePrezime}
             </Text>
             <Text>
               <Text style={styles.boldText}>Email:</Text> {user.email}
             </Text>
             <Text>
-              <Text style={styles.boldText}>Članarina:</Text> {user.phone}
+              <Text style={styles.boldText}>Članarina:</Text> {user.visinaClanarine}
             </Text>
           </View>
         </View>
