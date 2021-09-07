@@ -19,8 +19,8 @@ function AddMember(props) {
       .add({ ...values });
   };
 
-  const openDocumentFile = () => {
-    const res = DocumentPicker.getDocumentAsync({
+  const openDocumentFile = async () => {
+    const res = await DocumentPicker.getDocumentAsync({
       type: "image/jpeg",
     });
     console.log(res);
