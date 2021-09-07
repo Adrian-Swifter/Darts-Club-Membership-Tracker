@@ -1,15 +1,30 @@
 import React from "react";
-import { Button, TextInput, View, StyleSheet } from "react-native";
+import {
+  Button,
+  TextInput,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+} from "react-native";
 import { Formik } from "formik";
 import { app } from "../FirebaseConfig";
-function AddMember(props) {
+import * as DocumentPicker from "expo-document-picker";
 
+function AddMember(props) {
   const addMembersToFirestore = (values) => {
     app
-    .firestore()
-    .collection("members")
-    .add({...values})
-  }
+      .firestore()
+      .collection("members")
+      .add({ ...values });
+  };
+
+  const openDocumentFile = () => {
+    const res = DocumentPicker.getDocumentAsync({
+      type: "image/jpeg",
+    });
+    console.log(res);
+  };
 
   return (
     <View style={styles.container}>
@@ -36,7 +51,17 @@ function AddMember(props) {
               onChangeText={props.handleChange("visinaClanarine")}
               value={props.values.visinaClanarine}
             />
-
+            <TouchableOpacity
+              onPress={() => openDocumentFile()}
+              style={{
+                padding: 10,
+                width: "80%",
+                alignItems: "center",
+                backgroundColor: "red",
+              }}
+            >
+              <Text>Select Image</Text>
+            </TouchableOpacity>
             <Button
               title="submit"
               color="dodgerblue"

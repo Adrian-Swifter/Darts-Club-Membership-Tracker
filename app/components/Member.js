@@ -12,7 +12,7 @@ function Member({ users, navigation }) {
               user: user,
             })
           }
-          key={user.id}
+          key={user.email}
           style={styles.memberRow}
         >
           <View>
