@@ -25,7 +25,7 @@ function MemberDetails({ route }) {
           <View>
             <Image
               style={styles.image}
-              source={require("../assets/user.png")}
+              source={user.url ? {uri: user.url} : require('../assets/user.png')}
             />
           </View>
           <View>

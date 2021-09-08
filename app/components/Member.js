@@ -3,7 +3,7 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 function Member({ users, navigation }) {
-  
+ 
   return (
     <View style={styles.layout}>
       {users.map((user) => (
@@ -19,10 +19,8 @@ function Member({ users, navigation }) {
         >
           <View>
             <Image
-              style={styles.image}
-              source={{
-                uri: user.url
-              }}
+              style={user.url ? styles.image: [styles.image, {opacity: 0.3}]}
+              source={user.url ? {uri: user.url} : require('../assets/user.png')}
             />
           </View>
           <View style={styles.iconContainer}>
@@ -68,7 +66,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 50,
-    opacity: 0.3,
   },
   text: {
     fontSize: 16,

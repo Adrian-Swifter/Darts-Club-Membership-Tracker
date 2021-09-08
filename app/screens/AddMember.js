@@ -20,7 +20,8 @@ function AddMember(props) {
     const res = await DocumentPicker.getDocumentAsync({
       type: "image/jpeg",
     });
-    setFile(res);
+    setFile(res.file);
+    console.log(res)
   };
 
   return (
