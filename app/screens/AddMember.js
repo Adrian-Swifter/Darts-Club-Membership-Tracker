@@ -21,7 +21,7 @@ function AddMember(props) {
       type: "image/jpeg",
     });
     setFile(res.file);
-    console.log(res)
+    console.log(res);
   };
 
   return (
@@ -51,18 +51,21 @@ function AddMember(props) {
         }}
       >
         {(props) => (
-          <View>
+          <View style={{ width: "90%" }}>
             <TextInput
+              style={styles.input}
               placeholder="Ime i Prezime"
               onChangeText={props.handleChange("imePrezime")}
               value={props.values.imePrezime}
             />
             <TextInput
+              style={styles.input}
               placeholder="Email"
               onChangeText={props.handleChange("email")}
               value={props.values.email}
             />
             <TextInput
+              style={styles.input}
               placeholder="Visina Članarine"
               onChangeText={props.handleChange("visinaClanarine")}
               value={props.values.visinaClanarine}
@@ -71,20 +74,24 @@ function AddMember(props) {
               onPress={() => openDocumentFile()}
               style={{
                 padding: 10,
-                width: "80%",
-                alignItems: "center",
-                backgroundColor: "red",
+                backgroundColor: "lightgrey",
+                marginBottom: 20,
               }}
             >
               <Text>Select Image</Text>
             </TouchableOpacity>
+            <Text style={{ marginBottom: 20 }}>{file.name}</Text>
             <Button
               title="submit"
               color="dodgerblue"
               onPress={props.handleSubmit}
             />
 
-            <Progress.Bar progress={progress} width={200} />
+            <Progress.Bar
+              style={{ marginTop: 20 }}
+              progress={progress}
+              width={null}
+            />
           </View>
         )}
       </Formik>
@@ -97,7 +104,9 @@ export default AddMember;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+  },
+  input: {
+    padding: 10,
   },
 });
