@@ -26,12 +26,12 @@ function Homepage(props) {
       .onSnapshot((memdata) => {
         const memarr = [];
         memdata.forEach((snapshot) => {
-          memarr.push({...snapshot.data()});
+          memarr.push({ ...snapshot.data() });
         });
         setMembers(memarr);
-      })
-      
+      });
   }, []);
+
   console.log(members);
   return (
     <ScrollView>
@@ -42,7 +42,7 @@ function Homepage(props) {
           resizeMode="contain"
         />
         <Header {...props} />
-        
+
         <Member users={members} {...props} />
       </SafeAreaView>
     </ScrollView>

@@ -10,13 +10,31 @@ import {
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { app } from "../FirebaseConfig";
 
 function MemberDetails({ route }) {
-  const months = require("../Months.json");
+  const [months, setMonths] = useState([]);
 
-  //const [months, setMonths] = useState({});
+  useEffect(() => {
+    app
+      .firestore()
+      .collection("years")
+      .onSnapshot((mondata) => {
+        const monarr = [];
+        mondata.forEach((snapshot) => {
+          monarr.push({ ...snapshot.data() });
+        });
+        //snapshot data je vracao array sa jednim objektom i zato ovaj hack da bi napravili itterable array od meseci
+        let finalarr = [];
+        monarr.forEach((mon) => {
+          for (const [id, month] of Object.entries(mon)) {
+            finalarr.push({ ...id, ...month });
+          }
+          setMonths(finalarr);
+        });
+      });
+  }, []);
   console.log(months);
-
   const { user } = route.params;
   return (
     <ScrollView>
@@ -25,7 +43,9 @@ function MemberDetails({ route }) {
           <View>
             <Image
               style={styles.image}
-              source={user.url ? {uri: user.url} : require('../assets/user.png')}
+              source={
+                user.url ? { uri: user.url } : require("../assets/user.png")
+              }
             />
           </View>
           <View>
@@ -36,19 +56,20 @@ function MemberDetails({ route }) {
               <Text style={styles.boldText}>Email:</Text> {user.email}
             </Text>
             <Text>
-              <Text style={styles.boldText}>Članarina:</Text> {user.visinaClanarine}
+              <Text style={styles.boldText}>Članarina:</Text>{" "}
+              {user.visinaClanarine}
             </Text>
           </View>
         </View>
         {/* {Meseci} */}
         <View style={styles.monthsContainer}>
-          {months.map((month) => (
-            <View key={month.abbreviation} style={styles.monthWrapper}>
-              <Text>{month.name}</Text>
+          {months.map((month, index) => (
+            <View key={index} style={styles.monthWrapper}>
+              <Text>{month[0]}</Text>
               <TouchableOpacity style={styles.iconWrapper}>
                 <Icon
                   style={styles.icon}
-                  name="remove"
+                  name={month[1] ? "check" : "remove"}
                   size={50}
                   color="white"
                 />
@@ -81,7 +102,7 @@ const styles = StyleSheet.create({
     height: 60,
   },
   iconWrapper: {
-    backgroundColor: true ? "tomato" : "#00ff00",
+    backgroundColor: false ? "tomato" : "#00ff00",
     padding: 10,
     width: 80,
     justifyContent: "center",
