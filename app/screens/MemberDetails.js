@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { app } from "../FirebaseConfig";
+import { app } from "../firebase/FirebaseConfig";
 
 function MemberDetails({ route }) {
   const [months, setMonths] = useState([]);

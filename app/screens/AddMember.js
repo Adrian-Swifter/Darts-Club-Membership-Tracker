@@ -8,7 +8,7 @@ import {
   Text,
 } from "react-native";
 import { Formik } from "formik";
-import { app } from "../FirebaseConfig";
+import { app } from "../firebase/FirebaseConfig";
 import * as DocumentPicker from "expo-document-picker";
 import * as Progress from "react-native-progress";
 
