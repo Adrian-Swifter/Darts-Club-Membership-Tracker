@@ -13,4 +13,4 @@ web-build/
 .DS_Store
 
 #firebase
-.FirebaseConfig
+app/FirebaseConfig.js
