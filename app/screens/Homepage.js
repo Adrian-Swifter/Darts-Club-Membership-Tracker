@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import Member from "../components/Member";
 import Header from "../components/Header";
-import { app } from "../FirebaseConfig";
+import { app } from "../firebase/FirebaseConfig";
 
 function Homepage(props) {
   const [users, setUsers] = useState([]);
@@ -26,13 +26,12 @@ function Homepage(props) {
       .onSnapshot((memdata) => {
         const memarr = [];
         memdata.forEach((snapshot) => {
-          memarr.push({ ...snapshot.data() });
+          memarr.push({ ...snapshot.data(), id: snapshot.id });
         });
         setMembers(memarr);
       });
   }, []);
 
-  console.log(members);
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>

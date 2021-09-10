@@ -8,12 +8,15 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Alert
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { app } from "../firebase/FirebaseConfig";
 
 function MemberDetails({ route }) {
+  const { user } = route.params;
   const [months, setMonths] = useState([]);
+  const [change, setChange] = useState(false);
 
   useEffect(() => {
     app
@@ -34,8 +37,23 @@ function MemberDetails({ route }) {
         });
       });
   }, []);
-  console.log(months);
-  const { user } = route.params;
+
+  const clanPlatioClanarinu = (mesec) => {
+    Alert.alert(
+      "Potvrda",
+      `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}`,
+      [
+        {
+          text: "Poništi",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Da", onPress: () => setChange(!change) }
+      ]
+    );
+    
+  };
+
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -66,10 +84,16 @@ function MemberDetails({ route }) {
           {months.map((month, index) => (
             <View key={index} style={styles.monthWrapper}>
               <Text>{month[0]}</Text>
-              <TouchableOpacity style={styles.iconWrapper}>
+              <TouchableOpacity
+                onPress={() => clanPlatioClanarinu(month[0])}
+                style={[
+                  styles.iconWrapper,
+                  { backgroundColor: change ? "#00ff00" : "tomato" },
+                ]}
+              >
                 <Icon
                   style={styles.icon}
-                  name={month[1] ? "check" : "remove"}
+                  name={change ? "check" : "remove"}
                   size={50}
                   color="white"
                 />
@@ -102,7 +126,6 @@ const styles = StyleSheet.create({
     height: 60,
   },
   iconWrapper: {
-    backgroundColor: false ? "tomato" : "#00ff00",
     padding: 10,
     width: 80,
     justifyContent: "center",

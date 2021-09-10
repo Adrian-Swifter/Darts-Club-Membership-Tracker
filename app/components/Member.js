@@ -3,11 +3,9 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 function Member({ users, navigation }) {
- 
   return (
     <View style={styles.layout}>
       {users.map((user) => (
-        
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("Member Details", {
@@ -19,8 +17,10 @@ function Member({ users, navigation }) {
         >
           <View>
             <Image
-              style={user.url ? styles.image: [styles.image, {opacity: 0.3}]}
-              source={user.url ? {uri: user.url} : require('../assets/user.png')}
+              style={user.url ? styles.image : [styles.image, { opacity: 0.3 }]}
+              source={
+                user.url ? { uri: user.url } : require("../assets/user.png")
+              }
             />
           </View>
           <View style={styles.iconContainer}>
