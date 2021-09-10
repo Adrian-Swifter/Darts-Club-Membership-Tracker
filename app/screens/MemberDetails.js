@@ -39,21 +39,31 @@ function MemberDetails({ route }) {
   }, []);
 
   const clanPlatioClanarinu = (mesec) => {
-    Alert.alert(
-      "Potvrda",
-      `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}`,
-      [
-        {
-          text: "Poništi",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "Da", onPress: () => setChange(!change) }
-      ]
-    );
-    
+    const date = new Date()
+    const year = date.getFullYear()
+    console.log(year)
+    // Alert.alert(
+    //   "Potvrda",
+    //   `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}`,
+    //   [
+    //     {
+    //       text: "Poništi",
+    //       onPress: () => console.log("Cancel Pressed"),
+    //       style: "cancel"
+    //     },
+    //     { text: "Da", onPress: () => {
+    //       setChange(!change)
+    //     }}
+    //   ]
+    // );
+   
+    app
+    .firestore()
+    .collection("years").doc(JSON.stringify(year)).set({
+      meseci: months
+    })
   };
-
+console.log(months)
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
