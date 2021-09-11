@@ -8,7 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Alert
+  Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { app } from "../firebase/FirebaseConfig";
@@ -17,6 +17,9 @@ function MemberDetails({ route }) {
   const { user } = route.params;
   const [months, setMonths] = useState([]);
   const [change, setChange] = useState(false);
+  const [data, setData] = useState([]);
+  const date = new Date();
+  const year = date.getFullYear();
 
   useEffect(() => {
     app
@@ -33,15 +36,31 @@ function MemberDetails({ route }) {
           for (const [id, month] of Object.entries(mon)) {
             finalarr.push({ ...id, ...month });
           }
+          console.log(finalarr, "finalarr")
           setMonths(finalarr);
         });
       });
   }, []);
 
+  useEffect(() => {
+    app
+      .firestore()
+      .collection(JSON.stringify(year))
+      .doc(user.id)
+      .get()
+      .then((data) => {
+        // const newArr = [];
+        // data.forEach((mdat) => {
+        //   newArr.push({ ...mdat.data() });
+        // });
+
+        // setData(newArr);
+     
+        setData(data.data())
+      });
+  }, []);
+
   const clanPlatioClanarinu = (mesec) => {
-    const date = new Date()
-    const year = date.getFullYear()
-    console.log(year)
     // Alert.alert(
     //   "Potvrda",
     //   `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}`,
@@ -56,14 +75,16 @@ function MemberDetails({ route }) {
     //     }}
     //   ]
     // );
-   
+    console.log(data);
     app
-    .firestore()
-    .collection("years").doc(JSON.stringify(year)).set({
-      meseci: months
-    })
+      .firestore()
+      .collection(JSON.stringify(year))
+      .doc(user.id)
+      .set({
+        platio: [mesec, ...data.platio],
+      });
   };
-console.log(months)
+  console.log(months, "meseci");
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
