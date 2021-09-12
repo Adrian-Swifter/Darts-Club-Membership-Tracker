@@ -20,7 +20,7 @@ function Homepage(props) {
   }, []);
 
   useEffect(() => {
-    app
+    const unsub = app
       .firestore()
       .collection("members")
       .onSnapshot((memdata) => {
@@ -30,6 +30,7 @@ function Homepage(props) {
         });
         setMembers(memarr);
       });
+    return () => unsub();
   }, []);
 
   return (

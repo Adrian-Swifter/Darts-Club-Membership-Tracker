@@ -33,7 +33,7 @@ function MemberDetails({ route }) {
   }, []);
 
   useEffect(() => {
-    app
+    const unsub = app
       .firestore()
       .collection(JSON.stringify(year))
       .doc(user.id)
@@ -43,6 +43,8 @@ function MemberDetails({ route }) {
           setPlatioData(paidMonthsArr.platio);
         }
       });
+
+    return () => unsub();
   }, []);
 
   const clanPlatioClanarinu = (mesec) => {
