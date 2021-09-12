@@ -39,7 +39,9 @@ function MemberDetails({ route }) {
       .doc(user.id)
       .onSnapshot((paidMonts) => {
         const paidMonthsArr = paidMonts.data();
-        setPlatioData(paidMonthsArr.platio);
+        if (paidMonthsArr) {
+          setPlatioData(paidMonthsArr.platio);
+        }
       });
   }, []);
 
@@ -60,9 +62,12 @@ function MemberDetails({ route }) {
               .firestore()
               .collection(JSON.stringify(year))
               .doc(user.id)
-              .update({
-                platio: firebase.firestore.FieldValue.arrayUnion(mesec),
-              });
+              .set(
+                {
+                  platio: firebase.firestore.FieldValue.arrayUnion(mesec),
+                },
+                { merge: true }
+              );
           },
         },
       ]
