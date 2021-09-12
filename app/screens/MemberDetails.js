@@ -13,12 +13,16 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import { app } from "../firebase/FirebaseConfig";
 import firebase from "firebase/app";
+import { Picker } from "@react-native-picker/picker";
+
 function MemberDetails({ route }) {
   const { user } = route.params;
   const [months, setMonths] = useState([]);
   const [platioData, setPlatioData] = useState([]);
   const date = new Date();
-  const year = date.getFullYear();
+  const currentYear = date.getFullYear();
+  const [year, setYear] = useState(currentYear);
+  const [years, setYears] = useState([]);
 
   useEffect(() => {
     app
@@ -30,7 +34,7 @@ function MemberDetails({ route }) {
         const mesecidata = mondata.data();
         setMonths(mesecidata.meseci);
       });
-  }, []);
+  }, [year]);
 
   useEffect(() => {
     const unsub = app
@@ -43,10 +47,22 @@ function MemberDetails({ route }) {
           setPlatioData(paidMonthsArr.platio);
         }
       });
-
     return () => unsub();
-  }, []);
+  }, [year]);
 
+  useEffect(() => {
+    app
+      .firestore()
+      .collection("years")
+      .get()
+      .then((ydata) => {
+        const yearsArr = [];
+        ydata.forEach((snap) => {
+          yearsArr.push(snap.id);
+        });
+        setYears(yearsArr);
+      });
+  }, []);
   const clanPlatioClanarinu = (mesec) => {
     Alert.alert(
       "Potvrda",
@@ -75,8 +91,9 @@ function MemberDetails({ route }) {
       ]
     );
   };
-  console.log(months, "meseci");
+
   console.log(platioData, "placeni meseci");
+
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -103,6 +120,17 @@ function MemberDetails({ route }) {
           </View>
         </View>
         {/* {Meseci} */}
+        <View>
+          <Picker
+            selectedValue={year}
+            onValueChange={(yearValue) => setYear(Number(yearValue))}
+          >
+            {years.map((year) => (
+              <Picker.Item key={year} label={year} value={year} />
+            ))}
+          </Picker>
+        </View>
+
         <View style={styles.monthsContainer}>
           {months.map((month, index) => (
             <View key={index} style={styles.monthWrapper}>
