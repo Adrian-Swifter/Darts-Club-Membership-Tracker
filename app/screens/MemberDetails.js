@@ -34,7 +34,7 @@ function MemberDetails({ route }) {
         const mesecidata = mondata.data();
         setMonths(mesecidata.meseci);
       });
-  }, [year]);
+  }, []);
 
   useEffect(() => {
     const unsub = app
@@ -43,8 +43,11 @@ function MemberDetails({ route }) {
       .doc(user.id)
       .onSnapshot((paidMonts) => {
         const paidMonthsArr = paidMonts.data();
+        console.log(paidMonthsArr, "placeni meseci");
         if (paidMonthsArr) {
           setPlatioData(paidMonthsArr.platio);
+        } else {
+          setPlatioData([]);
         }
       });
     return () => unsub();
@@ -63,6 +66,7 @@ function MemberDetails({ route }) {
         setYears(yearsArr);
       });
   }, []);
+
   const clanPlatioClanarinu = (mesec) => {
     Alert.alert(
       "Potvrda",
@@ -92,8 +96,6 @@ function MemberDetails({ route }) {
     );
   };
 
-  console.log(platioData, "placeni meseci");
-
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -120,8 +122,9 @@ function MemberDetails({ route }) {
           </View>
         </View>
         {/* {Meseci} */}
-        <View>
+        <View style={{ alignItems: "center", width: 100, height: 30 }}>
           <Picker
+            style={{ flex: 1, width: "100%" }}
             selectedValue={year}
             onValueChange={(yearValue) => setYear(Number(yearValue))}
           >
