@@ -122,10 +122,10 @@ function MemberDetails({ route }) {
           </View>
         </View>
         {/* {Meseci} */}
-        <View style={{ alignItems: "center", width: 100, height: 30 }}>
+        <View style={{ alignItems: "center", width: 100, marginTop: 20 }}>
           <Picker
             style={{ flex: 1, width: "100%" }}
-            selectedValue={year}
+            selectedValue={JSON.stringify(year)}
             onValueChange={(yearValue) => setYear(Number(yearValue))}
           >
             {years.map((year) => (
