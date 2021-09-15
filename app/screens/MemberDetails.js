@@ -140,7 +140,7 @@ function MemberDetails({ route }) {
         </View>
         {isLoading ? (
           <View style={{ flex: 1, justifyContent: "center" }}>
-            <ActivityIndicator size="large" color="#0000ff" />
+            <ActivityIndicator size="large" color="dodgerblue" />
           </View>
         ) : (
           <>
