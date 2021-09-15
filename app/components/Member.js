@@ -23,14 +23,30 @@ function Member({ users, navigation }) {
               }
             />
           </View>
-          <View style={styles.iconContainer}>
-            <Text style={styles.text}>{user.imePrezime}</Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Icon
-              style={styles.icon}
-              name="hand-pointer-o"
+              style={{
+                backgroundColor: "tomato",
+                borderRadius: 50,
+                width: 25,
+                height: 25,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              name="remove"
               size={20}
-              color="dodgerblue"
+              color="white"
             />
+            <View style={styles.iconContainer}>
+              <Text style={styles.text}>{user.imePrezime}</Text>
+              <Icon
+                style={styles.icon}
+                name="hand-pointer-o"
+                size={15}
+                color="dodgerblue"
+              />
+            </View>
           </View>
         </TouchableOpacity>
       ))}
@@ -73,6 +89,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     alignItems: "flex-end",
+    marginLeft: 10,
   },
   icon: {
     paddingTop: 10,
