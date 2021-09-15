@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { app } from "../firebase/FirebaseConfig";
@@ -23,6 +24,7 @@ function MemberDetails({ route }) {
   const currentYear = date.getFullYear();
   const [year, setYear] = useState(currentYear);
   const [years, setYears] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     app
@@ -43,12 +45,12 @@ function MemberDetails({ route }) {
       .doc(user.id)
       .onSnapshot((paidMonts) => {
         const paidMonthsArr = paidMonts.data();
-        console.log(paidMonthsArr, "placeni meseci");
         if (paidMonthsArr) {
           setPlatioData(paidMonthsArr.platio);
         } else {
           setPlatioData([]);
         }
+        setIsLoading(false);
       });
     return () => unsub();
   }, [year]);
@@ -64,13 +66,14 @@ function MemberDetails({ route }) {
           yearsArr.push(snap.id);
         });
         setYears(yearsArr);
+        setIsLoading(false);
       });
   }, []);
 
   const clanPlatioClanarinu = (mesec) => {
     Alert.alert(
       "Potvrda",
-      `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}`,
+      `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}, ${year}-e godine?`,
       [
         {
           text: "Poništi",
@@ -121,44 +124,53 @@ function MemberDetails({ route }) {
             </Text>
           </View>
         </View>
-        {/* {Meseci} */}
+
         <View style={{ alignItems: "center", width: 100, marginTop: 20 }}>
           <Picker
             style={{ flex: 1, width: "100%" }}
             selectedValue={JSON.stringify(year)}
-            onValueChange={(yearValue) => setYear(Number(yearValue))}
+            onValueChange={(yearValue) =>
+              setYear(Number(yearValue), setIsLoading(true))
+            }
           >
             {years.map((year) => (
               <Picker.Item key={year} label={year} value={year} />
             ))}
           </Picker>
         </View>
-
-        <View style={styles.monthsContainer}>
-          {months.map((month, index) => (
-            <View key={index} style={styles.monthWrapper}>
-              <Text>{month}</Text>
-              <TouchableOpacity
-                onPress={() => clanPlatioClanarinu(month)}
-                style={[
-                  styles.iconWrapper,
-                  {
-                    backgroundColor: platioData.includes(month)
-                      ? "#00ff00"
-                      : "tomato",
-                  },
-                ]}
-              >
-                <Icon
-                  style={styles.icon}
-                  name={platioData.includes(month) ? "check" : "remove"}
-                  size={50}
-                  color="white"
-                />
-              </TouchableOpacity>
+        {isLoading ? (
+          <View style={{ flex: 1, justifyContent: "center" }}>
+            <ActivityIndicator size="large" color="#0000ff" />
+          </View>
+        ) : (
+          <>
+            <View style={styles.monthsContainer}>
+              {months.map((month, index) => (
+                <View key={index} style={styles.monthWrapper}>
+                  <Text>{month}</Text>
+                  <TouchableOpacity
+                    onPress={() => clanPlatioClanarinu(month)}
+                    style={[
+                      styles.iconWrapper,
+                      {
+                        backgroundColor: platioData.includes(month)
+                          ? "#00ff00"
+                          : "tomato",
+                      },
+                    ]}
+                  >
+                    <Icon
+                      style={styles.icon}
+                      name={platioData.includes(month) ? "check" : "remove"}
+                      size={50}
+                      color="white"
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
+          </>
+        )}
       </SafeAreaView>
     </ScrollView>
   );
@@ -169,6 +181,7 @@ export default MemberDetails;
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
+    flex: 1,
   },
   flexContainer: {
     flexDirection: "row",
@@ -180,14 +193,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
+    borderRadius: 4,
   },
   iconWrapper: {
     padding: 10,
     width: 80,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 4,
   },
 
   monthsContainer: {
