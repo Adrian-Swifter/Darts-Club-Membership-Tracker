@@ -50,6 +50,7 @@ function MemberDetails({ route }) {
         } else {
           setPlatioData([]);
         }
+
         setIsLoading(false);
       });
     return () => unsub();
@@ -71,31 +72,32 @@ function MemberDetails({ route }) {
   }, []);
 
   const clanPlatioClanarinu = (mesec) => {
-    Alert.alert(
-      "Potvrda",
-      `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}, ${year}-e godine?`,
-      [
-        {
-          text: "Poništi",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        {
-          text: "Da",
-          onPress: () => {
-            app
-              .firestore()
-              .collection(JSON.stringify(year))
-              .doc(user.id)
-              .set(
-                {
-                  platio: firebase.firestore.FieldValue.arrayUnion(mesec),
-                },
-                { merge: true }
-              );
-          },
-        },
-      ]
+    // Alert.alert(
+    //   "Potvrda",
+    //   `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}, ${year}-e godine?`,
+    //   [
+    //     {
+    //       text: "Poništi",
+    //       onPress: () => console.log("Cancel Pressed"),
+    //       style: "cancel",
+    //     },
+    //     {
+    //       text: "Da",
+    //       onPress: () => {
+           
+    //       },
+    //     },
+    //   ]
+    // );
+    app
+    .firestore()
+    .collection(JSON.stringify(year))
+    .doc(user.id)
+    .set(
+      {
+        platio: firebase.firestore.FieldValue.arrayUnion(mesec),
+      },
+      { merge: true }
     );
   };
 

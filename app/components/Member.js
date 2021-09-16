@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { app } from "../firebase/FirebaseConfig";
 
 function Member({ users, navigation }) {
+  const [meseci, setMeseci] = useState([]);
+  const [placeniMeseci, setPlaceniMeseci] = useState([]);
+  const date = new Date();
+  console.log(date.getMonth());
+  useEffect(() => {
+    app
+      .firestore()
+      .collection("years")
+      .doc("2020")
+      .get()
+      .then((mondata) => {
+        const mesecidata = mondata.data();
+        setMeseci(mesecidata.meseci);
+      });
+  }, []);
+
+  useEffect(() => {
+    app
+      .firestore()
+      .collection("2021")
+      .onSnapshot((udata) => {
+        const userDataArr = [];
+        udata.forEach((userData) => {
+          userDataArr.push({ ...userData.data(), id: userData.id });
+        });
+        setPlaceniMeseci(userDataArr);
+      });
+  }, []);
+
+  meseci.length = date.getMonth() + 1;
+  
   return (
     <View style={styles.layout}>
-      {users.map((user) => (
+      {users.map((user, userIndex) => (
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("Member Details", {
@@ -24,28 +56,37 @@ function Member({ users, navigation }) {
             />
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Icon
-              style={{
-                backgroundColor: "tomato",
-                borderRadius: 50,
-                width: 25,
-                height: 25,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              name="remove"
-              size={20}
-              color="white"
-            />
             <View style={styles.iconContainer}>
               <Text style={styles.text}>{user.imePrezime}</Text>
-              <Icon
+              {/* <Icon
                 style={styles.icon}
                 name="hand-pointer-o"
                 size={15}
                 color="dodgerblue"
-              />
+              /> */}
+              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                {meseci
+                  .filter(
+                    (mesec) =>
+                      placeniMeseci[userIndex].platio.indexOf(mesec) < 0
+                  )
+                  .map((mesec) => (
+                    <Text
+                      key={mesec}
+                      style={{
+                        backgroundColor: "tomato",
+                        color: "white",
+                        paddingHorizontal: 5,
+                        fontWeight: 600,
+                        borderRadius: 3,
+                        margin: 2,
+                        fontSize: 12,
+                      }}
+                    >
+                      {mesec.substring(0, 3)}
+                    </Text>
+                  ))}
+              </View>
             </View>
           </View>
         </TouchableOpacity>
