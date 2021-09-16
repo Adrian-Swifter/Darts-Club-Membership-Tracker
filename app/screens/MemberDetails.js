@@ -99,7 +99,7 @@ function MemberDetails({ route }) {
       ]
     );
   };
-
+  
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>

@@ -6,7 +6,7 @@ function Member({ users, navigation }) {
   const [meseci, setMeseci] = useState([]);
   const [placeniMeseci, setPlaceniMeseci] = useState([]);
   const date = new Date();
-  console.log(date.getMonth());
+  
   useEffect(() => {
     app
       .firestore()

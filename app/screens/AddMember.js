@@ -74,11 +74,11 @@ function AddMember(props) {
               onPress={() => openDocumentFile()}
               style={{
                 padding: 10,
-                backgroundColor: "lightgrey",
+                backgroundColor: "tomato",
                 marginBottom: 20,
               }}
             >
-              <Text>Select Image</Text>
+              <Text style={{color: "white"}}>Select Image</Text>
             </TouchableOpacity>
             <Text style={{ marginBottom: 20 }}>{file.name}</Text>
             <Button
