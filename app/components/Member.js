@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { app } from "../firebase/FirebaseConfig";
 
 function Member({ users, navigation }) {
@@ -34,7 +33,7 @@ function Member({ users, navigation }) {
   }, []);
 
   meseci.length = date.getMonth() + 1;
-  
+
   return (
     <View style={styles.layout}>
       {users.map((user, userIndex) => (
@@ -58,12 +57,7 @@ function Member({ users, navigation }) {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={styles.iconContainer}>
               <Text style={styles.text}>{user.imePrezime}</Text>
-              {/* <Icon
-                style={styles.icon}
-                name="hand-pointer-o"
-                size={15}
-                color="dodgerblue"
-              /> */}
+
               <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {meseci
                   .filter(
@@ -77,7 +71,7 @@ function Member({ users, navigation }) {
                         backgroundColor: "tomato",
                         color: "white",
                         paddingHorizontal: 5,
-                        fontWeight: 600,
+                        fontWeight: "600",
                         borderRadius: 3,
                         margin: 2,
                         fontSize: 12,
