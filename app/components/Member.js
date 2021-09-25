@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import { app } from "../firebase/FirebaseConfig";
+import emailjs from "emailjs-com";
 
 function Member({ users, navigation }) {
   const [meseci, setMeseci] = useState([]);
   const [placeniMeseci, setPlaceniMeseci] = useState([]);
   const date = new Date();
-  
+
   useEffect(() => {
     app
       .firestore()
@@ -31,6 +39,25 @@ function Member({ users, navigation }) {
         setPlaceniMeseci(userDataArr);
       });
   }, []);
+
+  //left my email for testing, replace later with custom email variable
+  const sendEmails = (name, clanarina, email, placeniM) => {
+    console.log(placeniM);
+    emailjs.send(
+      "service_38oag4a",
+      "template_37z1m5n",
+      {
+        to_name: name,
+        message: `Vaš dug za članarnu iznosi ${
+          clanarina * (meseci.length - placeniM)
+        } dinara. Molimo Vas da što pre regulišete neizmirene obaveze kod blagajnika kluba, Mihaila Krgovića.`,
+        from_name: "Pikado Klub Matadori",
+        clanarina,
+        to_email: "milosdraskovic1282@gmail.com",
+      },
+      "user_hX3wFmVChin8yt31lXPte"
+    );
+  };
 
   meseci.length = date.getMonth() + 1;
 
@@ -57,7 +84,18 @@ function Member({ users, navigation }) {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={styles.iconContainer}>
               <Text style={styles.text}>{user.imePrezime}</Text>
-
+              {console.log(placeniMeseci[userIndex].platio.length)}
+              <Button
+                onPress={() =>
+                  sendEmails(
+                    user.imePrezime,
+                    user.visinaClanarine,
+                    user.email,
+                    placeniMeseci[userIndex].platio.length
+                  )
+                }
+                title="Send alert email"
+              />
               <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {meseci
                   .filter(
