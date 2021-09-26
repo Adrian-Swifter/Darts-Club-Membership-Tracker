@@ -42,15 +42,19 @@ function Member({ users, navigation }) {
 
   //left my email for testing, replace later with custom email variable
   const sendEmails = (name, clanarina, email, placeniM) => {
-    console.log(placeniM);
+    const dug = clanarina * (meseci.length - placeniM);
+ 
+    const emailMsg =
+      dug > 0
+        ? `Vaš dug za članarnu iznosi ${dug} dinara. Molimo Vas da što pre regulišete neizmirene obaveze kod blagajnika kluba, Mihaila Krgovića.`
+        : `Vaš dug za članarnu iznosi ${dug} dinara. Hvala Vam što izmirujete svoje obaveze prema klubu na vreme!`;
+
     emailjs.send(
       "service_38oag4a",
       "template_37z1m5n",
       {
         to_name: name,
-        message: `Vaš dug za članarnu iznosi ${
-          clanarina * (meseci.length - placeniM)
-        } dinara. Molimo Vas da što pre regulišete neizmirene obaveze kod blagajnika kluba, Mihaila Krgovića.`,
+        message: emailMsg,
         from_name: "Pikado Klub Matadori",
         clanarina,
         to_email: "milosdraskovic1282@gmail.com",
@@ -84,7 +88,7 @@ function Member({ users, navigation }) {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View style={styles.iconContainer}>
               <Text style={styles.text}>{user.imePrezime}</Text>
-              {console.log(placeniMeseci[userIndex].platio.length)}
+
               <Button
                 onPress={() =>
                   sendEmails(
