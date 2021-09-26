@@ -80,7 +80,7 @@ function MemberDetails({ route }) {
           {
             text: "Poništi",
             onPress: () =>
-              console.log(index, date.getMonth(), year, currentYear),
+              console.log("Ponisti"),
             style: "cancel",
           },
           {
@@ -115,7 +115,7 @@ function MemberDetails({ route }) {
           {
             text: "Poništi",
             onPress: () =>
-              console.log(index, date.getMonth(), year, currentYear),
+              console.log("Ponisti"),
             style: "cancel",
           },
           {
@@ -139,7 +139,7 @@ function MemberDetails({ route }) {
       Alert.alert("Uuups", "Nije moguće štiklirati mesece u budućnosti. :/", [
         {
           text: "OK",
-          onPress: () => console.log(index, date.getMonth(), year, currentYear),
+          onPress: () => console.log("OK"),
         },
       ]);
     }

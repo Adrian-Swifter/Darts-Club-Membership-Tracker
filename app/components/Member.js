@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { app } from "../firebase/FirebaseConfig";
 import emailjs from "emailjs-com";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 function Member({ users, navigation }) {
   const [meseci, setMeseci] = useState([]);
@@ -43,7 +44,7 @@ function Member({ users, navigation }) {
   //left my email for testing, replace later with custom email variable
   const sendEmails = (name, clanarina, email, placeniM) => {
     const dug = clanarina * (meseci.length - placeniM);
- 
+
     const emailMsg =
       dug > 0
         ? `Vaš dug za članarnu iznosi ${dug} dinara. Molimo Vas da što pre regulišete neizmirene obaveze kod blagajnika kluba, Mihaila Krgovića.`
@@ -89,7 +90,7 @@ function Member({ users, navigation }) {
             <View style={styles.iconContainer}>
               <Text style={styles.text}>{user.imePrezime}</Text>
 
-              <Button
+              <TouchableOpacity
                 onPress={() =>
                   sendEmails(
                     user.imePrezime,
@@ -98,8 +99,17 @@ function Member({ users, navigation }) {
                     placeniMeseci[userIndex].platio.length
                   )
                 }
-                title="Send alert email"
-              />
+                style={{
+                  backgroundColor: "dodgerblue",
+                  padding: 7,
+                  flexDirection: "row",
+                }}
+              >
+                <Text style={{ color: "white", marginRight: 5, fontWeight: "600" }}>
+                  Članarina
+                </Text>
+                <Icon name="bell" size={20} color="gold" />
+              </TouchableOpacity>
               <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {meseci
                   .filter(
