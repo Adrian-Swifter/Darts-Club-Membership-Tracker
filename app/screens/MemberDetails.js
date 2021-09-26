@@ -71,35 +71,80 @@ function MemberDetails({ route }) {
       });
   }, []);
 
-  const clanPlatioClanarinu = (mesec) => {
-    Alert.alert(
-      "Potvrda",
-      `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}, ${year}-e godine?`,
-      [
-        {
-          text: "Poništi",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        {
-          text: "Da",
-          onPress: () => {
-            app
-              .firestore()
-              .collection(JSON.stringify(year))
-              .doc(user.id)
-              .set(
-                {
-                  platio: firebase.firestore.FieldValue.arrayUnion(mesec),
-                },
-                { merge: true }
-              );
+  const clanPlatioClanarinu = (mesec, index) => {
+    if (year <= currentYear && index <= date.getMonth()) {
+      Alert.alert(
+        "Potvrda",
+        `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}, ${year}-e godine?`,
+        [
+          {
+            text: "Poništi",
+            onPress: () =>
+              console.log(index, date.getMonth(), year, currentYear),
+            style: "cancel",
           },
+          {
+            text: "Da",
+            onPress: () => {
+              app
+                .firestore()
+                .collection(JSON.stringify(year))
+                .doc(user.id)
+                .set(
+                  {
+                    platio: firebase.firestore.FieldValue.arrayUnion(mesec),
+                  },
+                  { merge: true }
+                );
+            },
+          },
+        ]
+      );
+    } else if (year == currentYear && index > date.getMonth()) {
+      Alert.alert("Uuups", "Nije moguće štiklirati mesece u budućnosti. :/", [
+        {
+          text: "OK",
+          onPress: () => console.log(index, date.getMonth(), year, currentYear),
         },
-      ]
-    );
+      ]);
+    } else if (year <= currentYear && index > date.getMonth()) {
+      Alert.alert(
+        "Potvrda",
+        `Da li ste sigurni da je ${user.imePrezime} platio clanarinu za mesec ${mesec}, ${year}-e godine?`,
+        [
+          {
+            text: "Poništi",
+            onPress: () =>
+              console.log(index, date.getMonth(), year, currentYear),
+            style: "cancel",
+          },
+          {
+            text: "Da",
+            onPress: () => {
+              app
+                .firestore()
+                .collection(JSON.stringify(year))
+                .doc(user.id)
+                .set(
+                  {
+                    platio: firebase.firestore.FieldValue.arrayUnion(mesec),
+                  },
+                  { merge: true }
+                );
+            },
+          },
+        ]
+      );
+    } else {
+      Alert.alert("Uuups", "Nije moguće štiklirati mesece u budućnosti. :/", [
+        {
+          text: "OK",
+          onPress: () => console.log(index, date.getMonth(), year, currentYear),
+        },
+      ]);
+    }
   };
-  
+
   return (
     <ScrollView>
       <SafeAreaView style={styles.container}>
@@ -150,7 +195,7 @@ function MemberDetails({ route }) {
                 <View key={index} style={styles.monthWrapper}>
                   <Text>{month}</Text>
                   <TouchableOpacity
-                    onPress={() => clanPlatioClanarinu(month)}
+                    onPress={() => clanPlatioClanarinu(month, index)}
                     style={[
                       styles.iconWrapper,
                       {
